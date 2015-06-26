@@ -1,1 +1,28 @@
 
+# Privilege Checker 1.0
+# Created by /u/demonlordghirahim
+# 
+# My first bot (obviously in progress). It replies to comments saying "check 
+# your privilege" with "Privilege Checked! ✓"
+
+import praw
+
+
+def main():
+    ''''''
+    user_agent = "github.com/lordghirahim/Reddit-Bots/ Privilege Checker 1.0 \
+    (created by /u/demonlordghirahim)"
+    
+    r = praw.Reddit(user_agent=user_agent)
+    
+    r.login('Privilege-Bot', 'password')
+    already_done = set()
+    
+    all_comments = r.get_comments('all')
+    
+    for comment in all_comments:
+        if comment.body.lower() == "check your privilege":
+            comment.reply("Privilege Checked! ✓")
+            already_done.append(comment.id)
+
+main()
