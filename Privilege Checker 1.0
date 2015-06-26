@@ -1,11 +1,12 @@
-
 # Privilege Checker 1.0
 # Created by /u/demonlordghirahim
 # 
-# My first bot (obviously in progress). It replies to comments saying "check 
-# your privilege" with "Privilege Checked! ✓"
+# My first bot (obviously in progress). It replies to comments on 
+# the subreddit 'TumblrInAction saying "check your privilege" 
+# with "Privilege Checked! ✓"
 
 import praw
+import time
 
 
 def main():
@@ -15,14 +16,18 @@ def main():
     
     r = praw.Reddit(user_agent=user_agent)
     
-    r.login('Privilege-Bot', 'password')
+    r.login('Privilege-Bot', 'cockatoofeather123')
     already_done = set()
+    sub_comments = r.get_comments('TumblrInAction')
     
-    all_comments = r.get_comments('all')
-    
-    for comment in all_comments:
-        if comment.body.lower() == "check your privilege":
+    string = "check your privilege"
+    for comment in sub_comments:
+        if string in str(comment).lower() and comment.id not in already_done:
             comment.reply("Privilege Checked! ✓")
-            already_done.append(comment.id)
+            already_done.add(comment.id)
 
-main()
+
+while True:
+    num = time.time() 
+    if num % 2 == 0:      
+        main()
