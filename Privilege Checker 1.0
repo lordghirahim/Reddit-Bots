@@ -16,7 +16,7 @@ def main():
     
     r = praw.Reddit(user_agent=user_agent)
     
-    r.login('Privilege-Bot', 'cockatoofeather123')
+    r.login('Privilege-Bot', 'password')
     already_done = set()
     sub_comments = r.get_comments('TumblrInAction')
     
